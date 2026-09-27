@@ -8,9 +8,6 @@ namespace TA_gokart
 {
     internal class Helyszin
     {
-
-        // Gokart pálya adatainak tárolása
-
         public string palyanev = "Future Gokart";
         public string palyacim = "6600 Szentes, Csongrádi út 5.";
         public string palyatelefon = "+36 30 123 4567";

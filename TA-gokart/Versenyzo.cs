@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Globalization;
 using System.Text;
-using System.Threading.Tasks;
+
 
 namespace TA_gokart
 {
@@ -22,57 +21,34 @@ namespace TA_gokart
             Szulido = szulido;
         }
 
+        public static string EkezetNelkul(string szoveg)
+        {
+            string normalizalt = szoveg.Normalize(NormalizationForm.FormD);
+            StringBuilder sb = new StringBuilder();
+
+            foreach (char c in normalizalt)
+            {
+                var kategoria = CharUnicodeInfo.GetUnicodeCategory(c);
+                if (kategoria != UnicodeCategory.NonSpacingMark)
+                {
+                    sb.Append(c);
+                }
+            }
+
+            return sb.ToString().Normalize(NormalizationForm.FormC);
+        }
         public string AzonositoGen()
         {
             string azonositodatum = Szulido.ToString("yyyyMMdd");
-            string vezetek = Vezeteknev
-                .Replace("á", "a")
-                .Replace("é", "e")
-                .Replace("í", "i")
-                .Replace("ó", "o")
-                .Replace("ö", "o")
-                .Replace("ő", "o")
-                .Replace("ú", "u")
-                .Replace("ü", "u")
-                .Replace("ű", "u");
-
-            string kereszt = Keresztnev
-                .Replace("á", "a")
-                .Replace("é", "e")
-                .Replace("í", "i")
-                .Replace("ó", "o")
-                .Replace("ö", "o")
-                .Replace("ő", "o")
-                .Replace("ú", "u")
-                .Replace("ü", "u")
-                .Replace("ű", "u");
+            string vezetek = EkezetNelkul(Vezeteknev);
+            string kereszt = EkezetNelkul(Keresztnev);
             return $"GO-{vezetek}{kereszt}-{azonositodatum}";
         }
 
         public string EmailGen()
         {
-            string vezetek = Vezeteknev.ToLower()
-                .Replace("á", "a")
-                .Replace("é", "e")
-                .Replace("í", "i")
-                .Replace("ó", "o")
-                .Replace("ö", "o")
-                .Replace("ő", "o")
-                .Replace("ú", "u")
-                .Replace("ü", "u")
-                .Replace("ű", "u");
-
-            string kereszt = Keresztnev.ToLower()
-                .Replace("á", "a")
-                .Replace("é", "e")
-                .Replace("í", "i")
-                .Replace("ó", "o")
-                .Replace("ö", "o")
-                .Replace("ő", "o")
-                .Replace("ú", "u")
-                .Replace("ü", "u")
-                .Replace("ű", "u");
-
+            string vezetek = EkezetNelkul(Vezeteknev).ToLower();
+            string kereszt = EkezetNelkul(Keresztnev).ToLower();
             return $"{vezetek}.{kereszt}@gmail.com";
         }
 
