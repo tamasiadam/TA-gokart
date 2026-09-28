@@ -89,7 +89,7 @@ namespace TA_gokart
             {
                 Console.WriteLine($"\nNév: {versenyzo.Vezeteknev} {versenyzo.Keresztnev}\n" +
                                   $"Születési idő: {versenyzo.Szulido:yyyy. MM. dd.}\n" +
-                                  $"18 elmúlt-e? {versenyzo.Nagykoru}\n" +
+                                  $"18 elmúlt-e? {(versenyzo.Nagykoru ? "Igen" : "Nem")}\n" +
                                   $"Azonosító: {versenyzo.Azonosito}\n" +
                                   $"Email: {versenyzo.Email}");
             }
